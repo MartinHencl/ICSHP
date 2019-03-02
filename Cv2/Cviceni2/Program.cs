@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ *  REPOZITAR REZANINY - emilrezanina
+ * */
+
+using System;
 using Utils;
 
 namespace Cviceni2
