@@ -55,6 +55,8 @@ namespace SamplesLibrary
         {
             MyInteger myInteger1 = new MyInteger() { Value = 33 };
             MyInteger myInteger2 = new MyInteger(33, true);
+            //myInteger1.Signed = true;
+            myInteger1.Value = 10;
 
             MyInteger myInteger3 = 125;
         }
