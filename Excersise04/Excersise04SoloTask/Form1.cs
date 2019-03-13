@@ -14,6 +14,7 @@ namespace Excersise04SoloTask
     {
         public Form1()
         {
+            bod 6
             InitializeComponent();
         }
     }

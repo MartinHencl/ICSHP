@@ -17,13 +17,15 @@ namespace MessageLogger
 
         private void Button_send_click(object sender, EventArgs e)
         {
-            tututu
+            if (checkBox_rightPanel.Checked)
+                textBox_rightPanel.Text += textBox_input.Text + "\r\n";
         }
 
         private void SendTextToLeftTextBox(object sender, EventArgs e)
         {
             textBox_leftPanel.Text += textBox_input.Text + "\r\n";
         }
+
         private void SendTextToRightTextBox(object sender, EventArgs e)
         {
             textBox_rightPanel.Text += textBox_input.Text + "\r\n";
