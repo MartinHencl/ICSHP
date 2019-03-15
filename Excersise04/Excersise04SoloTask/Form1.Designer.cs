@@ -1,6 +1,6 @@
 ﻿namespace Excersise04SoloTask
 {
-    partial class Form1
+    partial class LetterGuesser
     {
         /// <summary>
         /// Required designer variable.
@@ -43,14 +43,15 @@
             // gameListBox
             // 
             this.gameListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gameListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gameListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gameListBox.FormattingEnabled = true;
-            this.gameListBox.ItemHeight = 42;
+            this.gameListBox.ItemHeight = 108;
             this.gameListBox.Location = new System.Drawing.Point(0, 0);
             this.gameListBox.MultiColumn = true;
             this.gameListBox.Name = "gameListBox";
             this.gameListBox.Size = new System.Drawing.Size(848, 193);
             this.gameListBox.TabIndex = 0;
+            this.gameListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListBoxKeyDown);
             // 
             // statusStrip1
             // 
@@ -102,8 +103,9 @@
             // 
             this.timer.Enabled = true;
             this.timer.Interval = 800;
+            this.timer.Tick += new System.EventHandler(this.Tick);
             // 
-            // Form1
+            // LetterGuesser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,7 +115,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "LetterGuesser";
             this.Text = "Form1";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
