@@ -7,7 +7,7 @@ namespace Excersise04SoloTask
     {
         Random random = new Random();
         Stats stats = new Stats();
-
+        
         public LetterGuesser()
         {
             stats.UpdatedStats += Stats_UpdatedStats;

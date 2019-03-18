@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LigaMistruSoloTask", "LigaMistruSoloTask\LigaMistruSoloTask.csproj", "{F7FB42C1-2007-4383-84B0-75E719FC62C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7FB42C1-2007-4383-84B0-75E719FC62C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7FB42C1-2007-4383-84B0-75E719FC62C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7FB42C1-2007-4383-84B0-75E719FC62C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7FB42C1-2007-4383-84B0-75E719FC62C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0DAAD768-2DD8-4394-9A58-F2579B0DB24F}
+	EndGlobalSection
+EndGlobal
