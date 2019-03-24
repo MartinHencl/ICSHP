@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LigaMistruSoloTask
 {
     class Hraci
     {
         public Hrac[] poleHracu;
-        public int Pocet { get; set; }
+        public int Pocet { get; private set; }
 
         public Hraci()
         {
@@ -19,32 +17,72 @@ namespace LigaMistruSoloTask
 
         public void Vymaz(int index)
         {
-            poleHracu[index] = null;
-
-            A TADY TO TROCHU ODROTOVAT ABYCH NEMEL DIRY
+            for (int i = Pocet; i > index; i--)
+            {
+                poleHracu[i - 1] = poleHracu[i];
+            }
+            poleHracu[Pocet] = null;
+            Pocet--;
         }
 
         public void Pridej(Hrac hracNovy)
         {
-            ++Pocet;
+            poleHracu[Pocet] = hracNovy;
+            Pocet++;
         }
 
         public Hrac this[int index]
         {
             get
             {
-                return poleHracu[index];
+                if (index < Pocet)
+                {
+                    return poleHracu[index];
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }
             }
             set
             {
                 poleHracu[index] = value;
             }
         }
-        
-        public void NajdiNejlepsiKluby(out FotbalovyKlub klub, out int pocet)
+
+        public void NajdiNejlepsiKluby(out FotbalovyKlub[] klubySNejviceGoly, out int pocet)
         {
-            klub = new FotbalovyKlub();
+            klubySNejviceGoly = new FotbalovyKlub[6];
             pocet = 0;
+            var golyMapaKlubu = new Dictionary<FotbalovyKlub, int>();
+            for (int i = 0; i < Pocet; i++)
+            {
+                FotbalovyKlub klub = poleHracu[i].Klub;
+                if (!golyMapaKlubu.ContainsKey(klub))
+                {
+                    golyMapaKlubu.Add(klub, poleHracu[i].GolPocet);
+                }
+                else
+                {
+                    golyMapaKlubu[klub] += poleHracu[i].GolPocet;
+                }
+            }
+
+            var golyKlubyList = golyMapaKlubu.ToList();
+            golyKlubyList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            int nejvicGolu = golyKlubyList.Last().Value;
+
+            for (int i = golyKlubyList.Capacity - 1; i >= 0; i--)
+            {
+                if (nejvicGolu <= golyKlubyList[i].Value)
+                {
+                    klubySNejviceGoly[pocet++] = golyKlubyList[i].Key;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
         public delegate void PocetZmenenEventHandler(object sender, EventArgs e);
