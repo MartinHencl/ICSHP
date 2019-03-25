@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LigaMistruSoloTask
@@ -23,6 +16,10 @@ namespace LigaMistruSoloTask
             hraci.NajdiNejlepsiKluby(out FotbalovyKlub[] nejlepsiKluby, out int pocet);
             foreach (var klub in nejlepsiKluby)
             {
+                if (klub == 0)
+                {
+                    break;
+                }
                 KlubyListBox.Items.Add(klub);
             }
             GolyTextBox.Text = pocet.ToString();

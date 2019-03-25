@@ -63,7 +63,6 @@ namespace LigaMistruSoloTask
         public void NajdiNejlepsiKluby(out FotbalovyKlub[] klubySNejviceGoly, out int pocet)
         {
             klubySNejviceGoly = new FotbalovyKlub[6];
-            pocet = 0;
             var golyMapaKlubu = new Dictionary<FotbalovyKlub, int>();
             for (int i = 0; i < Pocet; i++)
             {
@@ -81,7 +80,7 @@ namespace LigaMistruSoloTask
             var golyKlubyList = golyMapaKlubu.ToList();
             golyKlubyList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
             pocet = golyKlubyList.Last().Value;
-            int indexKlubuSNejGoly = 0;            
+            int indexKlubuSNejGoly = 0;
             for (int i = golyKlubyList.Capacity - 1; i >= 0; i--)
             {
                 if (pocet <= golyKlubyList[i].Value)

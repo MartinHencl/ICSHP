@@ -96,6 +96,7 @@
             this.RegistrovatButton.TabIndex = 5;
             this.RegistrovatButton.Text = "Registrovat";
             this.RegistrovatButton.UseVisualStyleBackColor = true;
+            this.RegistrovatButton.Click += new System.EventHandler(this.RegistrovatButton_Click);
             // 
             // ZrusitButton
             // 
@@ -105,6 +106,7 @@
             this.ZrusitButton.TabIndex = 6;
             this.ZrusitButton.Text = "Zrušit";
             this.ZrusitButton.UseVisualStyleBackColor = true;
+            this.ZrusitButton.Click += new System.EventHandler(this.ZrusitButton_Click);
             // 
             // KonecButton
             // 
@@ -114,6 +116,7 @@
             this.KonecButton.TabIndex = 7;
             this.KonecButton.Text = "Konec";
             this.KonecButton.UseVisualStyleBackColor = true;
+            this.KonecButton.Click += new System.EventHandler(this.KonecButton_Click);
             // 
             // LogyTextBox
             // 

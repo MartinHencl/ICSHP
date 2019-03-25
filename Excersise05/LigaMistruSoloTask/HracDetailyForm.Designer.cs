@@ -81,9 +81,11 @@
             this.JmenoTextBox.Name = "JmenoTextBox";
             this.JmenoTextBox.Size = new System.Drawing.Size(121, 20);
             this.JmenoTextBox.TabIndex = 4;
+            this.JmenoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.JmenoTextBox_KeyPress);
             // 
             // KlubComboBox
             // 
+            this.KlubComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.KlubComboBox.FormattingEnabled = true;
             this.KlubComboBox.Location = new System.Drawing.Point(116, 40);
             this.KlubComboBox.Name = "KlubComboBox";
@@ -96,6 +98,7 @@
             this.GolyTextBox.Name = "GolyTextBox";
             this.GolyTextBox.Size = new System.Drawing.Size(121, 20);
             this.GolyTextBox.TabIndex = 6;
+            this.GolyTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GolyTextBox_KeyPress);
             // 
             // ZrusitButton
             // 
@@ -107,7 +110,7 @@
             this.ZrusitButton.UseVisualStyleBackColor = true;
             this.ZrusitButton.Click += new System.EventHandler(this.ZrusitButton_Click);
             // 
-            // NovyHracForm
+            // HracDetailyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -120,7 +123,7 @@
             this.Controls.Add(this.GolyLabel);
             this.Controls.Add(this.KlubLabel);
             this.Controls.Add(this.JmenoLabel);
-            this.Name = "NovyHracForm";
+            this.Name = "HracDetailyForm";
             this.Text = "Nový Hráč";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -12,6 +12,8 @@ namespace Excersise04SoloTask
         {
             stats.UpdatedStats += Stats_UpdatedStats;
             InitializeComponent();
+            this.Name = Properties.Resources.ApplicationTitle;
+            this.Text = Properties.Resources.ApplicationTitle;
         }
 
         private void Stats_UpdatedStats(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace Excersise04SoloTask
             }
             else
             {
-                gameListBox.Items.Add((Keys)random.Next(65, 90));
+                gameListBox.Items.Add((Keys)random.Next(65, 91));
             }
         }
 

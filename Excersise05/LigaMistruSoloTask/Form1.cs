@@ -12,6 +12,7 @@ namespace LigaMistruSoloTask
             hraci = new Hraci();
             InitializeComponent();
             this.CenterToScreen();
+            this.Text = "Liga Mistrů";
             DataGridNastaveni();
             GenerujParHracu();
             ObnovDataGridHracu();
@@ -37,18 +38,35 @@ namespace LigaMistruSoloTask
             for (int i = 0; i < hraci.Pocet; i++)
             {
                 listHracuDataGridView.Rows.Add(
-                    new object[] { hraci[i].Jmeno, hraci[i].Klub.ToString(), hraci[i].GolPocet });
+                    new object[] { hraci[i].Jmeno, hraci[i].Klub.GetDescription(), hraci[i].GolPocet });
             }
             listHracuDataGridView.Refresh();
         }
 
         private void GenerujParHracu()
         {
-            hraci.Pridej(new Hrac("Karel", FotbalovyKlub.Arsenal, 5));
-            hraci.Pridej(new Hrac("Pepa", FotbalovyKlub.Barcelona, 5));
-            hraci.Pridej(new Hrac("Igor", FotbalovyKlub.FCPorto, 5));
-            hraci.Pridej(new Hrac("Jan", FotbalovyKlub.RealMadrid, 15));
-            hraci.Pridej(new Hrac("Někdo", FotbalovyKlub.Arsenal, 15));
+            Random rand = new Random();
+            int index = -1;
+            hraci.Pridej(new Hrac("Karel" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Pepa" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Igor" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Jan" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Někdo" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Karel" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Pepa" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Igor" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Jan" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Někdo" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Karel" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Pepa" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Igor" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Jan" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Někdo" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Karel" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Pepa" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Igor" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Jan" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
+            hraci.Pridej(new Hrac("Někdo" + ++index, (FotbalovyKlub)rand.Next(1, 7), rand.Next(1, 8)));
         }
 
         /****** PRIVATE SYSTEM  ******/
@@ -80,6 +98,29 @@ namespace LigaMistruSoloTask
             NejlepsiKlubyForm formKluby = new NejlepsiKlubyForm(hraci);
             formKluby.ShowDialog(this);
             ObnovDataGridHracu();
+        }
+
+        private void KonecButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void RegistrovatButton_Click(object sender, EventArgs e)
+        {
+            hraci.PocetZmenen += Hraci_PocetZmenen;
+            LogyTextBox.Text += "Handler pridan" + "\r\n";
+        }
+
+        private void ZrusitButton_Click(object sender, EventArgs e)
+        {
+            hraci.PocetZmenen -= Hraci_PocetZmenen;
+            LogyTextBox.Text += "Handler odebran" + "\r\n";
+        }
+
+        private void Hraci_PocetZmenen(object sender, EventArgs e)
+        {
+            LogyTextBox.Text += "Test" + "\r\n";
+            TADY JE CHYBKA
         }
     }
 }
