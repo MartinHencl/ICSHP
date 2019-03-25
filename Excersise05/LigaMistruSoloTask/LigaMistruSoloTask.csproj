@@ -56,10 +56,28 @@
     <Compile Include="FotbalovyKlubInfo.cs" />
     <Compile Include="Hrac.cs" />
     <Compile Include="Hraci.cs" />
+    <Compile Include="HracDetailyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HracDetailyForm.Designer.cs">
+      <DependentUpon>HracDetailyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NejlepsiKlubyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NejlepsiKlubyForm.Designer.cs">
+      <DependentUpon>NejlepsiKlubyForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HracDetailyForm.resx">
+      <DependentUpon>HracDetailyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NejlepsiKlubyForm.resx">
+      <DependentUpon>NejlepsiKlubyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

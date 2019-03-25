@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace LigaMistruSoloTask
 {
-    class Hraci
+    public class Hraci
     {
         public Hrac[] poleHracu;
         public int Pocet { get; private set; }
@@ -17,9 +17,13 @@ namespace LigaMistruSoloTask
 
         public void Vymaz(int index)
         {
-            for (int i = Pocet; i > index; i--)
+            for (int i = index; i < Pocet; i++)
             {
-                poleHracu[i - 1] = poleHracu[i];
+                if ((i + 1) >= Pocet)
+                {
+                    break;
+                }
+                poleHracu[i] = poleHracu[i + 1];
             }
             poleHracu[Pocet] = null;
             Pocet--;
@@ -31,18 +35,24 @@ namespace LigaMistruSoloTask
             Pocet++;
         }
 
+        internal void Uprav(Hrac hrac, int index)
+        {
+            poleHracu[index] = null;
+            poleHracu[index] = hrac;
+        }
+
         public Hrac this[int index]
         {
             get
             {
                 if (index < Pocet)
                 {
-                    return poleHracu[index];
+                    if (poleHracu[index] != null)
+                    {
+                        return poleHracu[index];
+                    }
                 }
-                else
-                {
-                    throw new IndexOutOfRangeException();
-                }
+                throw new IndexOutOfRangeException();
             }
             set
             {
@@ -70,13 +80,13 @@ namespace LigaMistruSoloTask
 
             var golyKlubyList = golyMapaKlubu.ToList();
             golyKlubyList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
-            int nejvicGolu = golyKlubyList.Last().Value;
-
+            pocet = golyKlubyList.Last().Value;
+            int indexKlubuSNejGoly = 0;            
             for (int i = golyKlubyList.Capacity - 1; i >= 0; i--)
             {
-                if (nejvicGolu <= golyKlubyList[i].Value)
+                if (pocet <= golyKlubyList[i].Value)
                 {
-                    klubySNejviceGoly[pocet++] = golyKlubyList[i].Key;
+                    klubySNejviceGoly[indexKlubuSNejGoly++] = golyKlubyList[i].Key;
                 }
                 else
                 {
