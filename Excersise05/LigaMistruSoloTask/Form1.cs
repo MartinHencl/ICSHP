@@ -74,7 +74,7 @@ namespace LigaMistruSoloTask
         private void PridejButton_Click(object sender, EventArgs e)
         {
             HracDetailyForm formNovyHrac = new HracDetailyForm(hraci);
-            formNovyHrac.ShowDialog();
+            formNovyHrac.ShowDialog(this);
             ObnovDataGridHracu();
         }
 
@@ -83,6 +83,7 @@ namespace LigaMistruSoloTask
             int itemIndex = listHracuDataGridView.SelectedCells[0].RowIndex;
             hraci.Vymaz(itemIndex);
             ObnovDataGridHracu();
+            
         }
 
         private void UpravitButton_Click(object sender, EventArgs e)
@@ -107,20 +108,21 @@ namespace LigaMistruSoloTask
 
         private void RegistrovatButton_Click(object sender, EventArgs e)
         {
-            hraci.PocetZmenen += Hraci_PocetZmenen;
+            hraci.PocetZmenen += new Hraci.PocetZmenenEventHandler(Hraci_PocetZmenen);
             LogyTextBox.Text += "Handler pridan" + "\r\n";
         }
 
         private void ZrusitButton_Click(object sender, EventArgs e)
         {
-            hraci.PocetZmenen -= Hraci_PocetZmenen;
+            hraci.PocetZmenen -= new Hraci.PocetZmenenEventHandler(Hraci_PocetZmenen);
             LogyTextBox.Text += "Handler odebran" + "\r\n";
         }
 
         private void Hraci_PocetZmenen(object sender, EventArgs e)
         {
-            LogyTextBox.Text += "Test" + "\r\n";
-            TADY JE CHYBKA
+            LogyTextBox.Text += "Event procnul ";
+            LogyTextBox.Text += hraci.Pocet;
+            LogyTextBox.Text += "\r\n";
         }
     }
 }

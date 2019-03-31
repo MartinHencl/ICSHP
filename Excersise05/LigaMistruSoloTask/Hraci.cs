@@ -6,13 +6,27 @@ namespace LigaMistruSoloTask
 {
     public class Hraci
     {
-        public Hrac[] poleHracu;
-        public int Pocet { get; private set; }
+        private Hrac[] poleHracu;
+        private int pocetHracu;
+
+        public delegate void PocetZmenenEventHandler(object sender, PocetZmenenEventArgs e);
+
+        public class PocetZmenenEventArgs : EventArgs
+        {
+            public int PuvodniPocet { get; set; }
+        }
+
+        public event PocetZmenenEventHandler PocetZmenen;
+
+        public int Pocet
+        {
+            get => pocetHracu;
+        }
 
         public Hraci()
         {
             poleHracu = new Hrac[100];
-            Pocet = 0;
+            pocetHracu = 0;
         }
 
         public void Vymaz(int index)
@@ -26,13 +40,15 @@ namespace LigaMistruSoloTask
                 poleHracu[i] = poleHracu[i + 1];
             }
             poleHracu[Pocet] = null;
-            Pocet--;
+            pocetHracu--;
+            OnPocetZmenen(pocetHracu + 1);
         }
 
         public void Pridej(Hrac hracNovy)
         {
             poleHracu[Pocet] = hracNovy;
-            Pocet++;
+            pocetHracu++;
+            OnPocetZmenen(pocetHracu - 1);
         }
 
         internal void Uprav(Hrac hrac, int index)
@@ -94,15 +110,14 @@ namespace LigaMistruSoloTask
             }
         }
 
-        public delegate void PocetZmenenEventHandler(object sender, EventArgs e);
-
-        public event PocetZmenenEventHandler PocetZmenen;
-
-        private void OnPocetZmenen()
+        private void OnPocetZmenen(int puvodniPocetHracu)
         {
             PocetZmenenEventHandler handler = PocetZmenen;
             if (handler != null)
-                handler(this, new EventArgs());
+                handler(this, new PocetZmenenEventArgs()
+                {
+                    PuvodniPocet = puvodniPocetHracu
+                });
         }
     }
 }

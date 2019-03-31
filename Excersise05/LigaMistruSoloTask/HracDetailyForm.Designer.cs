@@ -67,6 +67,7 @@
             // 
             // OKButton
             // 
+            this.OKButton.Enabled = false;
             this.OKButton.Location = new System.Drawing.Point(15, 114);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
@@ -81,6 +82,7 @@
             this.JmenoTextBox.Name = "JmenoTextBox";
             this.JmenoTextBox.Size = new System.Drawing.Size(121, 20);
             this.JmenoTextBox.TabIndex = 4;
+            this.JmenoTextBox.TextChanged += new System.EventHandler(this.JmenoTextBox_TextChanged);
             this.JmenoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.JmenoTextBox_KeyPress);
             // 
             // KlubComboBox
@@ -98,6 +100,7 @@
             this.GolyTextBox.Name = "GolyTextBox";
             this.GolyTextBox.Size = new System.Drawing.Size(121, 20);
             this.GolyTextBox.TabIndex = 6;
+            this.GolyTextBox.TextChanged += new System.EventHandler(this.GolyTextBox_TextChanged);
             this.GolyTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GolyTextBox_KeyPress);
             // 
             // ZrusitButton

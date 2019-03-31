@@ -69,14 +69,6 @@ namespace LigaMistruSoloTask
             this.Close();
         }
 
-        private void JmenoTextBox_KeyDown(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-        }
-        
         private void GolyTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -90,6 +82,28 @@ namespace LigaMistruSoloTask
             if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void JmenoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            KontrolaProOK();
+        }
+
+        private void GolyTextBox_TextChanged(object sender, EventArgs e)
+        {
+            KontrolaProOK();
+        }
+
+        private void KontrolaProOK()
+        {
+            if ((string.IsNullOrEmpty(JmenoTextBox.Text)) || (string.IsNullOrEmpty(GolyTextBox.Text)))
+            {
+                OKButton.Enabled = false;
+            }
+            else
+            {
+                OKButton.Enabled = true;
             }
         }
     }
