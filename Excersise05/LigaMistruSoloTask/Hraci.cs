@@ -8,7 +8,8 @@ namespace LigaMistruSoloTask
     {
         private Hrac[] poleHracu;
         private int pocetHracu;
-
+        private Hrac listHracu;
+        
         public delegate void PocetZmenenEventHandler(object sender, PocetZmenenEventArgs e);
 
         public class PocetZmenenEventArgs : EventArgs
@@ -22,10 +23,11 @@ namespace LigaMistruSoloTask
         {
             get => pocetHracu;
         }
+        public Hrac[] PoleHracu { get => poleHracu; set => poleHracu = value; }
 
         public Hraci()
         {
-            poleHracu = new Hrac[100];
+            PoleHracu = new Hrac[100];
             pocetHracu = 0;
         }
 
@@ -37,24 +39,24 @@ namespace LigaMistruSoloTask
                 {
                     break;
                 }
-                poleHracu[i] = poleHracu[i + 1];
+                PoleHracu[i] = PoleHracu[i + 1];
             }
-            poleHracu[Pocet] = null;
+            PoleHracu[Pocet] = null;
             pocetHracu--;
             OnPocetZmenen(pocetHracu + 1);
         }
 
         public void Pridej(Hrac hracNovy)
         {
-            poleHracu[Pocet] = hracNovy;
+            PoleHracu[Pocet] = hracNovy;
             pocetHracu++;
             OnPocetZmenen(pocetHracu - 1);
         }
 
         internal void Uprav(Hrac hrac, int index)
         {
-            poleHracu[index] = null;
-            poleHracu[index] = hrac;
+            PoleHracu[index] = null;
+            PoleHracu[index] = hrac;
         }
 
         public Hrac this[int index]
@@ -63,16 +65,16 @@ namespace LigaMistruSoloTask
             {
                 if (index < Pocet)
                 {
-                    if (poleHracu[index] != null)
+                    if (PoleHracu[index] != null)
                     {
-                        return poleHracu[index];
+                        return PoleHracu[index];
                     }
                 }
                 throw new IndexOutOfRangeException();
             }
             set
             {
-                poleHracu[index] = value;
+                PoleHracu[index] = value;
             }
         }
 
@@ -82,14 +84,14 @@ namespace LigaMistruSoloTask
             var golyMapaKlubu = new Dictionary<FotbalovyKlub, int>();
             for (int i = 0; i < Pocet; i++)
             {
-                FotbalovyKlub klub = poleHracu[i].Klub;
+                FotbalovyKlub klub = PoleHracu[i].Klub;
                 if (!golyMapaKlubu.ContainsKey(klub))
                 {
-                    golyMapaKlubu.Add(klub, poleHracu[i].GolPocet);
+                    golyMapaKlubu.Add(klub, PoleHracu[i].GolPocet);
                 }
                 else
                 {
-                    golyMapaKlubu[klub] += poleHracu[i].GolPocet;
+                    golyMapaKlubu[klub] += PoleHracu[i].GolPocet;
                 }
             }
 
@@ -108,6 +110,11 @@ namespace LigaMistruSoloTask
                     break;
                 }
             }
+
+            //  Emilova verze
+            //  private IEnuremable<(FotbalovyKlub, uint)> NajdiNejKluby()  .......
+            //  clubGoals.Where(item => item.Value == clubGoals.Max(pair => pair.Value)
+            //           .Select(pair => (pair.Key, pair.Value));
         }
 
         private void OnPocetZmenen(int puvodniPocetHracu)

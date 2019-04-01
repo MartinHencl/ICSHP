@@ -62,6 +62,7 @@
     <Compile Include="HracDetailyForm.Designer.cs">
       <DependentUpon>HracDetailyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpojovySeznam.cs" />
     <Compile Include="NejlepsiKlubyForm.cs">
       <SubType>Form</SubType>
     </Compile>
