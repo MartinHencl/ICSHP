@@ -6,9 +6,104 @@ namespace LigaMistruSoloTask
 {
     public class Hraci
     {
-        private Hrac[] poleHracu;
+
+        private SpojovySeznam<Hrac> listHracu;
         private int pocetHracu;
-        private Hrac listHracu;
+
+        public delegate void PocetZmenenEventHandler(object sender, PocetZmenenEventArgs e);
+
+        public class PocetZmenenEventArgs : EventArgs
+        {
+            public int PuvodniPocet { get; set; }
+        }
+
+        public event PocetZmenenEventHandler PocetZmenen;
+
+        public int Pocet
+        {
+            get => PocetHracu;
+        }
+        public SpojovySeznam<Hrac> ListHracu { get => listHracu; set => listHracu = value; }
+        public int PocetHracu { get => pocetHracu; set => pocetHracu = value; }
+
+        public Hraci()
+        {
+            ListHracu = new SpojovySeznam<Hrac>();
+        }
+
+        public void Vymaz(int index)
+        {
+            ListHracu.RemoveAt(index);
+        }
+
+        public void Pridej(Hrac hracNovy)
+        {
+            ListHracu.Add(hracNovy);
+        }
+
+        internal void Uprav(Hrac hrac, int index)
+        {
+            ListHracu[index] = hrac;
+        }
+
+        public Hrac this[int index]
+        {
+            get => ListHracu[index];
+            set => ListHracu[index] = value;
+        }
+
+        public void NajdiNejlepsiKluby(out FotbalovyKlub[] klubySNejviceGoly, out int pocet)
+        {
+            klubySNejviceGoly = new FotbalovyKlub[6];
+            var golyMapaKlubu = new Dictionary<FotbalovyKlub, int>();
+            for (int i = 0; i < Pocet; i++)
+            {
+                FotbalovyKlub klub = ListHracu[i].Klub;
+                if (!golyMapaKlubu.ContainsKey(klub))
+                {
+                    golyMapaKlubu.Add(klub, ListHracu[i].GolPocet);
+                }
+                else
+                {
+                    golyMapaKlubu[klub] += ListHracu[i].GolPocet;
+                }
+            }
+
+            var golyKlubyList = golyMapaKlubu.ToList();
+            golyKlubyList.Sort((pair1, pair2) => pair1.Value.CompareTo(pair2.Value));
+            pocet = golyKlubyList.Last().Value;
+            int indexKlubuSNejGoly = 0;
+            for (int i = golyKlubyList.Capacity - 1; i >= 0; i--)
+            {
+                if (pocet <= golyKlubyList[i].Value)
+                {
+                    klubySNejviceGoly[indexKlubuSNejGoly++] = golyKlubyList[i].Key;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            //  Emilova verze
+            //  private IEnuremable<(FotbalovyKlub, uint)> NajdiNejKluby()  .......
+            //  clubGoals.Where(item => item.Value == clubGoals.Max(pair => pair.Value)
+            //           .Select(pair => (pair.Key, pair.Value));
+        }
+
+        private void OnPocetZmenen(int puvodniPocetHracu)
+        {
+            PocetZmenenEventHandler handler = PocetZmenen;
+            if (handler != null)
+                handler(this, new PocetZmenenEventArgs()
+                {
+                    PuvodniPocet = puvodniPocetHracu
+                });
+        }
+
+        //***************************   PUVODNI VERZE S POLEM   ************************
+        /*private Hrac[] poleHracu;
+        private int pocetHracu;
         
         public delegate void PocetZmenenEventHandler(object sender, PocetZmenenEventArgs e);
 
@@ -125,6 +220,6 @@ namespace LigaMistruSoloTask
                 {
                     PuvodniPocet = puvodniPocetHracu
                 });
-        }
+        }*/
     }
 }
