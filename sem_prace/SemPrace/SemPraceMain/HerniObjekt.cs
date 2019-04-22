@@ -11,11 +11,11 @@ namespace SemPraceMain
     {
         private int poziceX;
         private int poziceY;
-        private int velikost;
+        private int velikostPolomer;
         private Color barvaMajitele;
         private bool dokonceno;
 
-        internal int Velikost { get => velikost; set => velikost = value; }
+        internal int VelikostPolomer { get => velikostPolomer; set => velikostPolomer = value; }
         internal int PoziceX { get => poziceX; set => poziceX = value; }
         internal int PoziceY { get => poziceY; set => poziceY = value; }
         internal bool Dokonceno { get => dokonceno; set => dokonceno = value; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -12,25 +13,36 @@ namespace SemPraceMain
     class VykreslovaniObjektu
     {
 
-        internal Ellipse NakresliNovyObjekt(HerniObjekt objekt)
+        internal Ellipse NakresliVesmirnyObjekt(HerniObjekt objekt)
         {
-            // Create a red Ellipse.
             Ellipse novyObjekt = new Ellipse();
 
-            // Create a SolidColorBrush with a red color to fill the 
-            // Ellipse with.
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
 
-            // Describes the brush's color using RGB values. 
-            // Each value has a range of 0-255.
             mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
             novyObjekt.Fill = mySolidColorBrush;
             novyObjekt.StrokeThickness = 2;
-            novyObjekt.Stroke = Brushes.Black;
+            novyObjekt.Stroke = Brushes.DarkGray;
 
-            // Set the width and height of the Ellipse.
-            novyObjekt.Width = objekt.Velikost;
-            novyObjekt.Height = objekt.Velikost;
+            novyObjekt.Width = objekt.VelikostPolomer * 2;
+            novyObjekt.Height = objekt.VelikostPolomer * 2;
+
+            return novyObjekt;
+        }
+
+        internal Ellipse NakresliPuntik(Point puntikKolem, Color barva)
+        {
+            Ellipse novyObjekt = new Ellipse();
+
+            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+
+            mySolidColorBrush.Color = barva;
+            novyObjekt.Fill = mySolidColorBrush;
+            //novyObjekt.StrokeThickness = 1;
+            //novyObjekt.Stroke = Brushes.DarkGray;
+
+            novyObjekt.Width = 5;
+            novyObjekt.Height = 5;
 
             return novyObjekt;
         }

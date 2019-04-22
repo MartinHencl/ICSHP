@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SemPraceMain
@@ -11,14 +12,14 @@ namespace SemPraceMain
     /// </summary>
     public partial class MainWindow : Window
     {
-        Grid VykreaslovaniGridHlavni;
+        Grid VykreslovaniGridHlavni;
         Canvas VykreslovaniCanvasHlavni;
 
         List <HerniObjekt> seznamHernichObjektu;
         DispatcherTimer casovac;
 
-        double maxVelikostX;
-        double maxVelikostY;
+        double maxVelikostCanvasX;
+        double maxVelikostCanvasY;
 
         public MainWindow()
         {
@@ -29,24 +30,25 @@ namespace SemPraceMain
             Application.Current.MainWindow.Width = 1000;
             Application.Current.MainWindow.Height = 600;
 
-            VykreaslovaniGridHlavni = new Grid();
-            VykreaslovaniGridHlavni.Width = hlavniOkno.Width;
-            VykreaslovaniGridHlavni.Height = hlavniOkno.Height;
+            VykreslovaniGridHlavni = new Grid();
+            VykreslovaniGridHlavni.Width = hlavniOkno.Width;
+            VykreslovaniGridHlavni.Height = hlavniOkno.Height;
 
             VykreslovaniCanvasHlavni = new Canvas();
-            VykreslovaniCanvasHlavni.Width = VykreaslovaniGridHlavni.Width;
-            VykreslovaniCanvasHlavni.Height = VykreaslovaniGridHlavni.Height;
+            VykreslovaniCanvasHlavni.Width = VykreslovaniGridHlavni.Width;
+            VykreslovaniCanvasHlavni.Height = VykreslovaniGridHlavni.Height;
+            VykreslovaniCanvasHlavni.Background = Brushes.Black;
 
-            hlavniOkno.Content = VykreaslovaniGridHlavni;
-            VykreaslovaniGridHlavni.Children.Add(VykreslovaniCanvasHlavni);
+            hlavniOkno.Content = VykreslovaniGridHlavni;
+            VykreslovaniGridHlavni.Children.Add(VykreslovaniCanvasHlavni);
 
             seznamHernichObjektu = new List<HerniObjekt>();
             //casovac.Tick += new EventHandler(Casovac_Tick);
             //casovac.Interval = new TimeSpan(0, 0, 0, 0, 20);
             //casovac.Start();
 
-            maxVelikostX = VykreslovaniCanvasHlavni.Width;
-            maxVelikostY = VykreslovaniCanvasHlavni.Height;
+            maxVelikostCanvasX = VykreslovaniCanvasHlavni.Width;
+            maxVelikostCanvasY = VykreslovaniCanvasHlavni.Height;
             VygenerovaniNovehoSveta();
         }
 
@@ -71,22 +73,37 @@ namespace SemPraceMain
             //planety nesmí být umístěny na hraně(nebo za
             //hranou) mapy a nesmí se dotýkat(radius obletové vzdálenosti jednotlivých planet); nageneruje
             //planety různé velikosti(16 - 48), některé hráče, některé neutrální, některé CPU
-            //Canvas canvasMuj = new Canvas();
             for (int pocetPlanet = 0; pocetPlanet < 5; pocetPlanet++)
             {
-                Planeta novaPlaneta = new Planeta(maxVelikostX, maxVelikostY);
+                Planeta novaPlaneta = new Planeta(maxVelikostCanvasX, maxVelikostCanvasY, seznamHernichObjektu);
                 seznamHernichObjektu.Add(novaPlaneta);
             }
             
             VykreslovaniObjektu kresleniObjektu = new VykreslovaniObjektu();
-            foreach (var objekt in seznamHernichObjektu)
+            foreach (var vesmirnyObjekt in seznamHernichObjektu)
             {
-                var objektKeKresleni = kresleniObjektu.NakresliNovyObjekt(objekt);
+                var objektKeKresleni = kresleniObjektu.NakresliVesmirnyObjekt(vesmirnyObjekt);
                 VykreslovaniCanvasHlavni.Children.Add(objektKeKresleni);
-                Canvas.SetLeft(objektKeKresleni, (objekt.PoziceX - objekt.Velikost / 2));
-                Canvas.SetTop(objektKeKresleni, (objekt.PoziceY - objekt.Velikost / 2));
+                Canvas.SetLeft(objektKeKresleni, (vesmirnyObjekt.PoziceX - vesmirnyObjekt.VelikostPolomer + 3 ));
+                Canvas.SetTop(objektKeKresleni, (vesmirnyObjekt.PoziceY - vesmirnyObjekt.VelikostPolomer + 2 ));
+                if (vesmirnyObjekt is Planeta)
+                {
+                    foreach (var puntikKolem in (vesmirnyObjekt as Planeta).obletoveBodyPlanety)
+                    {
+                        var obletovyPuntik = kresleniObjektu.NakresliPuntik(puntikKolem, Color.FromArgb(255, 100, 100, 100));
+                        VykreslovaniCanvasHlavni.Children.Add(obletovyPuntik);
+                        Canvas.SetLeft(obletovyPuntik, puntikKolem.X);
+                        Canvas.SetTop(obletovyPuntik, puntikKolem.Y);
+                    }
+                    foreach (var puntikOkraj in (vesmirnyObjekt as Planeta).kontaktniBodyPlanety)
+                    {
+                        var obletovyPuntik = kresleniObjektu.NakresliPuntik(puntikOkraj, Color.FromArgb(255, 150, 150, 150));
+                        VykreslovaniCanvasHlavni.Children.Add(obletovyPuntik);
+                        Canvas.SetLeft(obletovyPuntik, puntikOkraj.X);
+                        Canvas.SetTop(obletovyPuntik, puntikOkraj.Y);
+                    }
+                }
             }
-            //this.Content = canvasHlavni;
         }
 
         private void AlgoritmusVypoctuTrasyMeziDvemaPlanetami()
